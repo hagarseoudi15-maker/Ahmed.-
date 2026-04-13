@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أغلى أحمد ❤️</title>
+    <style>
+        :root { --primary: #ff4d6d; --bg: #fff0f3; }
+        body { margin: 0; padding: 0; background: var(--bg); font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 40px; box-shadow: 0 20px 50px rgba(255, 77, 109, 0.15); width: 85%; max-width: 400px; text-align: center; }
+        
+        /* شاشة الباسورد */
+        #passScreen { display: block; }
+        #passInput { padding: 15px; border-radius: 20px; border: 2px solid #ffccd5; width: 80%; margin-bottom: 20px; text-align: center; font-size: 18px; outline: none; direction: ltr; }
+        
+        /* شاشة المحتوى */
+        #contentScreen { display: none; animation: fadeIn 1s ease; }
+        .photo-album { position: relative; height: 160px; margin-bottom: 20px; display: flex; justify-content: center; }
+        .medo-img { width: 130px; height: 130px; border-radius: 30px; object-fit: cover; border: 4px solid white; box-shadow: 0 10px 20px rgba(0,0,0,0.1); position: absolute; opacity: 0; animation: fade 12s infinite; }
+        .medo-img:nth-child(1) { animation-delay: 0s; }
+        .medo-img:nth-child(2) { animation-delay: 4s; }
+        .medo-img:nth-child(3) { animation-delay: 8s; }
+
+        #msg-display { background: #fff5f6; padding: 20px; border-radius: 20px; color: #444; min-height: 70px; border-right: 5px solid var(--primary); margin: 20px 0; font-weight: 500; font-size: 16px; line-height: 1.6; }
+        .btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 15px; cursor: pointer; width: 100%; font-weight: bold; font-size: 16px; transition: 0.3s; }
+        .btn:active { transform: scale(0.95); }
+        
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 20px; }
+        .time-box { background: #f8fafc; padding: 10px; border-radius: 15px; border: 1px solid #eee; }
+        .time-box span { display: block; font-size: 18px; font-weight: 800; color: var(--primary); }
+        .time-box small { font-size: 10px; color: #666; }
+        
+        @keyframes fade { 0%, 25% { opacity: 1; } 30%, 100% { opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="passScreen">
+        <div style="font-size: 50px; margin-bottom: 20px;">🔒</div>
+        <input type="text" id="passInput" placeholder="أدخل التاريخ (يوم-شهر-سنة)">
+        <button class="btn" onclick="checkPass()">دخول ✨</button>
+    </div>
+
+    <div id="contentScreen">
+        <div class="photo-album">
+            <img src="Snapchat-400418781.jpg" class="medo-img">
+            <img src="Snapchat-2072894271.jpg" class="medo-img">
+            <img src="Snapchat-142004103.jpg" class="medo-img">
+        </div>
+        <h2 style="color: var(--primary); margin: 10px 0;">هاجر 💖 أحمد</h2>
+        <div id="msg-display">يا رب يا أحمد يبارك في عمرك ويخليك لينا سند وضحكة مالية البيت.. بحبك جداً.</div>
+        <button class="btn" onclick="changeMsg()">رسالة حب جديدة 🎁</button>
+        
+        <div class="timer-grid" id="timer"></div>
+        <p style="margin-top: 25px; color: var(--primary); font-weight: bold; font-size: 14px;">حبيبتك JOJA ❤️</p>
+    </div>
+</div>
+
+<div id="player" style="display:none"></div>
+
+<script>
+    // الباسورد الجديد
+    function checkPass() {
+        const input = document.getElementById('passInput').value;
+        if(input === "5-4-2026") {
+            document.getElementById('passScreen').style.display = 'none';
+            document.getElementById('contentScreen').style.display = 'block';
+            startMusic();
+        } else {
+            alert("الباسورد غلط.. ركز يا أحمد! 😉");
+        }
+    }
+
+    const messages = [
+        "يا رب يا أحمد يبارك في عمرك ويخليك لينا سند.. بحبك جداً.",
+        "إنت أجمل حاجة حصلت في دنيتي يا حبيبي.. ❤️",
+        "أنت عندي شيء كبير.. مالي أي عيش بدونه ❤️",
+        "لو لفيت العالم كله مش هلاقي حد في حنيتك.. 🌟",
+        "ضحكتك هي اللي بتنور لي دنيتي.. 💍",
+        "بشكر ربنا كل يوم إنه رزقني بيك.. ✨",
+        "إنت السند والظهر والأمان يا أحمد.. 💙",
+        "كل ثانية وإنت معايا هي عيد.. 🌸"
+    ];
+
+    function changeMsg() {
+        const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+        const display = document.getElementById('msg-display');
+        display.style.opacity = 0;
+        setTimeout(() => {
+            display.innerText = randomMsg;
+            display.style.opacity = 1;
+        }, 200);
+    }
+
+    function updateTimer() {
+        // العداد من تاريخ 1-1-2023
+        const start = new Date("2023-01-01T00:00:00").getTime();
+        const now = new Date().getTime();
+        const diff = now - start;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('timer').innerHTML = `
+            <div class="time-box"><span>${d}</span><small>يوم</small></div>
+            <div class="time-box"><span>${h}</span><small>ساعة</small></div>
+            <div class="time-box"><span>${m}</span><small>دقيقة</small></div>
+            <div class="time-box"><span>${s}</span><small>ثانية</small></div>
+        `;
+    }
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    var player;
+    function startMusic() {
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
+    }
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0', width: '0', videoId: 'piJC9HexIkU',
+            playerVars: { 'autoplay': 1, 'loop': 1, 'playlist': 'piJC9HexIkU' },
+            events: { 'onReady': (e) => e.target.playVideo() }
+        });
+    }
+</script>
+</body>
+</html>
+
